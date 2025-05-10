@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Electrical Appliances - SAMLECT ELECTRONICS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    header, footer {
+      background: #003366;
+      color: #fff;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+   header {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #003366;
+  color: #fff;
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+.left-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.search-bar {
+  width: 160px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 0.85rem;
+}
+
+.cart-button {
+  font-size: 0.9rem;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+    .cart-button i {
+      margin-right: 0.5rem;
+    }
+    footer {
+      bottom: 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 1rem;
+    }
+    .store-section {
+      background: #fff;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .store-section h2 {
+      color: #003366;
+      margin-bottom: 1rem;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      justify-items: center;
+    }
+    .product {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product img {
+      width: 100px;
+      border-radius: 5px;
+    }
+    .product-details {
+      margin-top: 0.5rem;
+    }
+    .price {
+      font-weight: bold;
+      color: green;
+    }
+    .add-to-cart, .qty-btn {
+      background: #003366;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .qty {
+      min-width: 20px;
+      text-align: center;
+    }
+    .search-bar {
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+    .search-bar input {
+      padding: 0.5rem;
+      width: 100%;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    footer {
+      background: #003366;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 0.5rem 0;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .footer-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.75rem;
+    }
+
+    .footer-nav i {
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .footer-nav a:hover {
+      color: #00ffcc;
+    }
+
+  </style>
+</head>
+<body>
+<header>
+  <div class="left-header">
+    <div class="logo">SAMLECT ELECTRONICS</div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search..." oninput="filterProducts()" />
+    </div>
+  </div>
+  <a href="cart.html" class="cart-button" id="cart-info">
+    <i class="fas fa-shopping-cart"></i>
+  </a>
+</header>
+  <main>
+    <section class="store-section" data-category="bulbs">
+      <h2>Bulbs</h2>
+      <div class="product-grid">
+        <div class="product" data-name="LED Bulb">
+          <img src="https://via.placeholder.com/100" alt="LED Bulb">
+          <div class="product-details">
+            <div>LED Bulb</div>
+            <div class="price">₦1,500</div>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 'LED Bulb', 'https://via.placeholder.com/100', 1500)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Halogen Bulb">
+          <img src="https://via.placeholder.com/100" alt="Halogen Bulb">
+          <div class="product-details">
+            <div>Halogen Bulb</div>
+            <div class="price">₦2,000</div>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 'Halogen Bulb', 'https://via.placeholder.com/100', 2000)">Add to Cart</button>
+        </div>
+        <!-- Add more products as needed -->
+      </div>
+    </section>
+
+    <section class="store-section" data-category="cables">
+      <h2>Cables</h2>
+      <div class="product-grid">
+        <div class="product" data-name="Copper Cable">
+          <img src="https://via.placeholder.com/100" alt="Copper Cable">
+          <div class="product-details">
+            <div>Copper Cable</div>
+            <div class="price">₦4,500</div>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 'Copper Cable', 'https://via.placeholder.com/100', 4500)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Flexible Wire">
+          <img src="https://via.placeholder.com/100" alt="Flexible Wire">
+          <div class="product-details">
+            <div>Flexible Wire</div>
+            <div class="price">₦3,000</div>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 'Flexible Wire', 'https://via.placeholder.com/100', 3000)">Add to Cart</button>
+        </div>
+        <!-- Add more products as needed -->
+      </div>
+    </section>
+
+    <section class="store-section" data-category="sockets">
+      <h2>Socket Outlets</h2>
+      <div class="product-grid">
+        <div class="product" data-name="Socket Outlet">
+          <img src="https://via.placeholder.com/100" alt="Socket Outlet">
+          <div class="product-details">
+            <div>Socket Outlet</div>
+            <div class="price">₦2,000</div>
+          </div>
+          <button class="add-to-cart" onclick="addToCart(this, 'Socket Outlet', 'https://via.placeholder.com/100', 2000)">Add to Cart</button>
+        </div>
+        <!-- Add more products as needed -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-nav">
+      <a href="home.html"><i class="fas fa-home"></i>Home</a>
+      <a href="store.html"><i class="fas fa-store"></i>Store</a>
+      <a href="services.html"><i class="fas fa-tools"></i>Services</a>
+      <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    function addToCartUI(button, name, image, price) {
+      const container = button.parentElement;
+      const controls = document.createElement("div");
+      controls.className = "cart-controls";
+      controls.innerHTML = `
+        <button class="qty-btn" onclick="changeQty('${name}', -1)">-</button>
+        <span class="qty" id="qty-${name}">1</span>
+        <button class="qty-btn" onclick="changeQty('${name}', 1)">+</button>
+      `;
+      button.replaceWith(controls);
+    }
+
+    function addToCart(button, name, image, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = cart.find(i => i.name === name);
+
+      if (item) {
+        item.quantity += 1;
+      } else {
+        cart.push({ name, image, price, quantity: 1 });
+        addToCartUI(button, name, image, price);
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartDisplay();
+      updateQtyDisplay(name);
+    }
+
+    function changeQty(name, delta) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = cart.find(i => i.name === name);
+
+      if (item) {
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+          cart = cart.filter(i => i.name !== name);
+          restoreAddButton(name);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartDisplay();
+        updateQtyDisplay(name);
+      }
+    }
+
+    function updateQtyDisplay(name) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = cart.find(i => i.name === name);
+      const qtySpan = document.getElementById(`qty-${name}`);
+      if (qtySpan && item) {
+        qtySpan.textContent = item.quantity;
+      }
+    }
+
+    function restoreAddButton(name) {
+      const products = document.querySelectorAll('.product');
+      products.forEach(product => {
+        if (product.dataset.name === name) {
+          const controls = product.querySelector('.cart-controls');
+          if (controls) {
+            const price = parseInt(product.querySelector('.price').textContent.replace(/[^\d]/g, ''));
+            const image = product.querySelector('img').src;
+            const newButton = document.createElement('button');
+            newButton.className = 'add-to-cart';
+            newButton.textContent = 'Add to Cart';
+            newButton.setAttribute('onclick', `addToCart(this, '${name}', '${image}', ${price})`);
+            controls.replaceWith(newButton);
+          }
+        }
+      });
+    }
+
+    function updateCartDisplay() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const totalPrice = cart.reduce((sum, item) => sum + (item.quantity * item.price), 0);
+      document.getElementById('cart-info').innerHTML =
+        `<i class="fas fa-shopping-cart"></i>Cart (${totalItems} items - ₦${totalPrice.toLocaleString()})`;
+    }
+
+    function filterProducts() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const products = document.querySelectorAll('.product');
+      products.forEach(product => {
+        const name = product.dataset.name.toLowerCase();
+        product.style.display = name.includes(query) ? 'block' : 'none';
+      });
+    }
+
+    window.onload = function () {
+      updateCartDisplay();
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      document.querySelectorAll('.add-to-cart').forEach(button => {
+        const nameMatch = button.getAttribute('onclick').match(/'([^']+)'/);
+        if (nameMatch) {
+          const name = nameMatch[1];
+          const item = cart.find(i => i.name === name);
+          if (item) {
+            addToCartUI(button, name, item.image, item.price);
+            updateQtyDisplay(name);
+          }
+        }
+      });
+    };
+  </script>
+</body>
+</html>

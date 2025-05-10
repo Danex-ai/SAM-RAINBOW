@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - SAMLECT ELECTRONICS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #003366;
+    }
+
+    .account-card {
+      background: #003366;
+      color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .summary {
+      margin-top: 2rem;
+      background: #e9f0ff;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .whatsapp-btn {
+      display: block;
+      margin-top: 1.5rem;
+      background: #25D366;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      text-decoration: none;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1ebe57;
+    }
+    .return-cart-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: #003366;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.return-cart-btn:hover {
+  background: #002244;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="account-card">
+      <h3>Bank Transfer Details</h3>
+      <p><strong>Account Name:</strong>OLUWADAMILARE SAMUEL AFOLABI</p>
+      <p><strong>Bank:</strong> Opay</p>
+      <p><strong>Account Number:</strong> 8135643810</p>
+    </div>
+       
+    <h2>Checkout</h2>
+    <form id="checkout-form">
+      <label>Full Name</label>
+      <input type="text" id="name" required />
+
+      <label>Phone Number</label>
+      <input type="tel" id="phone" required />
+
+      <label>Email Address</label>
+      <input type="email" id="email" required />
+
+      <label>State</label>
+      <select id="state" required>
+        <option value="">-- Select State --</option>
+        <option value="Abia">Abia</option>
+        <option value="Adamawa">Adamawa</option>
+        <option value="Akwa Ibom">Akwa Ibom</option>
+        <option value="Anambra">Anambra</option>
+        <option value="Bauchi">Bauchi</option>
+        <option value="Bayelsa">Bayelsa</option>
+        <option value="Benue">Benue</option>
+        <option value="Borno">Borno</option>
+        <option value="Cross River">Cross River</option>
+        <option value="Delta">Delta</option>
+        <option value="Ebonyi">Ebonyi</option>
+        <option value="Edo">Edo</option>
+        <option value="Ekiti">Ekiti</option>
+        <option value="Enugu">Enugu</option>
+        <option value="FCT - Abuja">FCT - Abuja</option>
+        <option value="Gombe">Gombe</option>
+        <option value="Imo">Imo</option>
+        <option value="Jigawa">Jigawa</option>
+        <option value="Kaduna">Kaduna</option>
+        <option value="Kano">Kano</option>
+        <option value="Katsina">Katsina</option>
+        <option value="Kebbi">Kebbi</option>
+        <option value="Kogi">Kogi</option>
+        <option value="Kwara">Kwara</option>
+        <option value="Lagos">Lagos</option>
+        <option value="Nasarawa">Nasarawa</option>
+        <option value="Niger">Niger</option>
+        <option value="Ogun">Ogun</option>
+        <option value="Ondo">Ondo</option>
+        <option value="Osun">Osun</option>
+        <option value="Oyo">Oyo</option>
+        <option value="Plateau">Plateau</option>
+        <option value="Rivers">Rivers</option>
+        <option value="Sokoto">Sokoto</option>
+        <option value="Taraba">Taraba</option>
+        <option value="Yobe">Yobe</option>
+        <option value="Zamfara">Zamfara</option>
+      </select>
+
+      <label>Local Government</label>
+      <input type="text" id="lga" required />
+
+      <label>Town</label>
+      <input type="text" id="town" required />
+
+      <label>House Address</label>
+      <textarea id="address" required></textarea>
+    </form>
+      .<a href="cart.html" class="return-cart-btn">← Return to Cart</a>
+    <div class="summary">
+      <div id="cart-total">Cart Total: ₦0</div>
+      <div id="shipping">Shipping: ₦0</div>
+      <div id="grand-total">Grand Total: ₦0</div>
+    </div>
+    
+    <a href="#" target="_blank" id="whatsapp-link" class="whatsapp-btn">
+      Complete Order via WhatsApp
+    </a>
+  </div>
+
+<script>
+  const stateSelect = document.getElementById("state");
+  const shippingDisplay = document.getElementById("shipping");
+  const cartTotalDisplay = document.getElementById("cart-total");
+  const grandTotalDisplay = document.getElementById("grand-total");
+  const whatsappLink = document.getElementById("whatsapp-link");
+
+  const shippingRates = {
+    "Lagos": 2000,
+    "Abuja": 2500,
+    "Kano": 3000,
+    "Rivers": 3000,
+    "default": 3500
+  };
+
+  function getShipping(state) {
+    return shippingRates[state] || shippingRates["default"];
+  }
+
+  function calculateTotal() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    cartTotalDisplay.textContent = `Cart Total: ₦${total.toLocaleString()}`;
+
+    const selectedState = stateSelect.value;
+    const shipping = getShipping(selectedState);
+    shippingDisplay.textContent = `Shipping: ₦${shipping.toLocaleString()}`;
+
+    const grandTotal = total + shipping;
+    grandTotalDisplay.textContent = `Grand Total: ₦${grandTotal.toLocaleString()}`;
+
+    return { cart, total, shipping, grandTotal };
+  }
+
+  function updateWhatsAppLink() {
+    const { cart, total, shipping, grandTotal } = calculateTotal();
+
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const state = stateSelect.value;
+    const lga = document.getElementById("lga").value;
+    const town = document.getElementById("town").value;
+    const address = document.getElementById("address").value;
+
+    const items = cart.map(item => `- ${item.name} (₦${item.price})`).join("\n");
+
+    const message = `*ORDER DETAILS*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*State:* ${state}\n*LGA:* ${lga}\n*Town:* ${town}\n*Address:* ${address}\n\n*Items:*\n${items}\n\n*Cart Total:* ₦${total.toLocaleString()}\n*Shipping:* ₦${shipping.toLocaleString()}\n*Grand Total:* ₦${grandTotal.toLocaleString()}\n\nPlease attach payment receipt to complete your order.`;
+
+    const encodedMsg = encodeURIComponent(message);
+    whatsappLink.href = `https://wa.me/2348135643810?text=${encodedMsg}`;
+  }
+
+  // Prevent multiple submissions
+  function preventMultipleSubmissions() {
+    if (localStorage.getItem("orderSubmitted")) {
+      whatsappLink.textContent = "Order Already Submitted";
+      whatsappLink.style.background = "#ccc";
+      whatsappLink.style.pointerEvents = "none";
+    }
+  }
+
+  // Set flag on click
+  whatsappLink.addEventListener("click", () => {
+    if (!localStorage.getItem("orderSubmitted")) {
+      localStorage.setItem("orderSubmitted", "true");
+    }
+  });
+
+  stateSelect.addEventListener("change", updateWhatsAppLink);
+  document.querySelectorAll("input, textarea").forEach(el => {
+    el.addEventListener("input", updateWhatsAppLink);
+  });
+
+  window.onload = () => {
+    updateWhatsAppLink();
+    preventMultipleSubmissions();
+  };
+</script>
+</body>
+</html>

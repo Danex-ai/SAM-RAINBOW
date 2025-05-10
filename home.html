@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAMLECT ELECTRONICS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #222;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #003366;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    main {
+      flex: 1;
+      overflow-y: auto;
+      margin-top: 80px; /* Height of header */
+      margin-bottom: 80px; /* Height of footer */
+    }
+
+    .section {
+      padding: 3rem 2rem;
+      background: #fff;
+      margin: 1rem 0;
+      border-radius: 10px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #home {
+      background: url('https://img.freepik.com/free-photo/man-electrical-technician-working-switchboard-with-fuses_169016-24410.jpg') no-repeat center center/cover;
+      color: #fff;
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    #home h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    #home p {
+      color: black;
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-box {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-align: left;
+    }
+
+    .feature-box h3 {
+      margin-bottom: 0.5rem;
+      color: #003366;
+    }
+
+    .feature-images {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .feature-images img {
+      width: 30%;
+      min-width: 100px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+   footer {
+  background: #003366;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0.5rem 0;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.75rem;
+}
+
+.footer-nav i {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.footer-nav a:hover {
+  color: #00ffcc;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Sam Rainbow Global Services Ltd</div>
+  </header>
+
+  <main>
+    <section id="home" class="section">
+      <h1>Sam Rainbow Engineering Solutions</h1>
+      <p>Specializing in Electrical Appliances, Installation, Solar, CCTV, House Wiring & Contracts</p>
+      <div class="features">
+        <!-- Feature 1 -->
+        <div class="feature-box">
+          <h3>Electrical Appliance Sales</h3>
+          <p>High-quality bulbs, fuses, junction boxes, and more at competitive prices.</p>
+          <div class="feature-images">
+            <img src="https://www.nxtidea.com/wp-content/uploads/2022/03/JM-Electricals-2.jpg" alt="Appliance 1">
+            <img src="https://www.nxtidea.com/wp-content/uploads/2022/03/JM-Electricals-2.jpeg" alt="Appliance 2">
+            <img src="https://www.nxtidea.com/wp-content/uploads/2022/03/JM-Electricals-5.jpeg" alt="Appliance 3">
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-box">
+          <h3>Installation Services</h3>
+          <p>We professionally fix and install all electrical appliances and systems.</p>
+          <div class="feature-images">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9qxAgrFeLYty1nvHn_EBszR-8qK77ZvYjIGz4purBWn4j8l50E7-7SG8&s=10" alt="Installation 1">
+            <img src="https://media.istockphoto.com/id/894471508/photo/electrician-working-in-a-residential-electrical-system.jpg?s=612x612&w=0&k=20&c=0AaXIkN3-bNXjvUOMGZP7EMxWRNAXdi09baAv-urStY=" alt="Installation 2">
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-box">
+          <h3>House Wiring</h3>
+          <p>We provide full wiring solutions for homes and offices with safety standards.</p>
+          <div class="feature-images">
+            <img src="https://images.unsplash.com/photo-1608574839637-2f7d0290d01d?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Wiring 1">
+            <img src="https://images.unsplash.com/photo-1652715564391-38cc4475b7f5?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Wiring 2">
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-box">
+          <h3>CCTV Installation</h3>
+          <p>Secure your property with our expert CCTV setup and configuration services.</p>
+          <div class="feature-images">
+            <img src="https://media.istockphoto.com/id/1322379963/photo/security-camera.jpg?s=612x612&w=0&k=20&c=_Vo5CicZOTBue-_pqCPUWjjcSEAkqLk0P_JREOId1eQ=" alt="CCTV 1">
+            <img src="https://media.istockphoto.com/id/1152641792/photo/a-wireless-cctv-camera-setting-outside-building-with-white-box-water-poof-with-sun-blur.jpg?s=612x612&w=is&k=20&c=mRDmhWdFAQBjL3NAo7z4nPU6CYdmj4lD9ghhusLRfIw=" alt="CCTV 2">
+          </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-box">
+          <h3>Solar Systems</h3>
+          <p>Reliable solar power systems tailored for energy efficiency and sustainability.</p>
+          <div class="feature-images">
+            <img src="https://img.freepik.com/free-photo/aerial-view-private-house-with-solar-panels-roof_181624-14677.jpg?ga=GA1.1.503724525.1746612840&semt=ais_hybrid&w=740" alt="Solar 1">
+            <img src="https://img.freepik.com/premium-photo/black-man-engineer-repair-solar-panel-roof-maintenance-industry-thinking-building-technician-screwdriver-tools-photovoltaic-tech-helmet-sustainable-renewable-energy_590464-213601.jpg?ga=GA1.1.503724525.1746612840&semt=ais_hybrid&w=740" alt="Solar 2">
+          </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-box">
+          <h3>Drilling & Pumping Contracts</h3>
+          <p>Experienced in executing contracts for water drilling and pump installations.</p>
+          <div class="feature-images">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaZ7I4ckZ2zLBsTUgmFbyJHMci3LBVMNd4iU2KXbNEiuj_Y8yK1uD_Y_wR&s=10" alt="Drilling 1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYRoPDPySCu4M_NogiJIFuNVZrnjjcGLnGcjyHVLhHnsmRIMKCmM285zw&s=10" alt="Drilling 2">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-nav">
+      <a href="home.html"><i class="fas fa-home"></i>Home</a>
+      <a href="store.html"><i class="fas fa-store"></i>Store</a>
+      <a href="services.html"><i class="fas fa-tools"></i>Services</a>
+    
+      <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
