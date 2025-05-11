@@ -60,7 +60,6 @@
     }
 
     footer {
-      background: #003366;
       position: fixed;
       bottom: 0;
       width: 100%;
@@ -114,20 +113,10 @@
 
     .product-container {
       display: flex;
-      flex-direction: row;
       overflow-x: auto;
       gap: 1.5rem;
       scroll-snap-type: x mandatory;
       padding-bottom: 1rem;
-    }
-
-    .product-container::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .product-container::-webkit-scrollbar-thumb {
-      background: #003366;
-      border-radius: 4px;
     }
 
     .product {
@@ -154,6 +143,28 @@
       font-weight: bold;
       color: green;
       margin-top: 0.5rem;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .quantity-control button {
+      background: #003366;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .quantity-control button:hover {
+      background: #00cc66;
     }
 
     .add-to-cart {
@@ -198,7 +209,6 @@
   </header>
 
   <main>
-    <!-- Product Sections (same as before) -->
     <section class="store-section">
       <h2>Electrical Appliance Sales</h2>
       <div class="product-container" id="electrical-products">
@@ -208,7 +218,9 @@
             <div>LED Bulb</div>
             <div class="price">₦1,500</div>
           </div>
-          <button class="add-to-cart" onclick="addToCart(this, 'LED Bulb', 'https://via.placeholder.com/200', 1500)">Add to Cart</button>
+          <div class="controls">
+            <button class="add-to-cart" onclick="addToCart(this, 'LED Bulb', 'https://via.placeholder.com/200', 1500)">Add to Cart</button>
+          </div>
         </div>
         <div class="product">
           <img src="https://via.placeholder.com/200" alt="Socket Outlet">
@@ -216,56 +228,11 @@
             <div>Socket Outlet</div>
             <div class="price">₦2,000</div>
           </div>
-          <button class="add-to-cart" onclick="addToCart(this, 'Socket Outlet', 'https://via.placeholder.com/200', 2000)">Add to Cart</button>
+          <div class="controls">
+            <button class="add-to-cart" onclick="addToCart(this, 'Socket Outlet', 'https://via.placeholder.com/200', 2000)">Add to Cart</button>
+          </div>
         </div>
       </div>
-      <a href="electric.html" class="explore-more" onclick="loadMoreProducts('electrical')">Explore More</a>
-    </section>
-
-    <section class="store-section">
-      <h2>Solar Systems</h2>
-      <div class="product-container" id="solar-products">
-        <div class="product">
-          <img src="https://via.placeholder.com/200" alt="Solar Panel">
-          <div class="product-details">
-            <div>200W Solar Panel</div>
-            <div class="price">₦45,000</div>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, '200W Solar Panel', 'https://via.placeholder.com/200', 45000)">Add to Cart</button>
-        </div>
-        <div class="product">
-          <img src="https://via.placeholder.com/200" alt="Solar Battery">
-          <div class="product-details">
-            <div>12V Solar Battery</div>
-            <div class="price">₦85,000</div>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, '12V Solar Battery', 'https://via.placeholder.com/200', 85000)">Add to Cart</button>
-        </div>
-      </div>
-      <a href="solar.html" class="explore-more" onclick="loadMoreProducts('solar')">Explore More</a>
-    </section>
-
-    <section class="store-section">
-      <h2>CCTV Installation</h2>
-      <div class="product-container" id="cctv-products">
-        <div class="product">
-          <img src="https://via.placeholder.com/200" alt="HD CCTV Camera">
-          <div class="product-details">
-            <div>HD CCTV Camera</div>
-            <div class="price">₦8,500</div>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 'HD CCTV Camera', 'https://via.placeholder.com/200', 8500)">Add to Cart</button>
-        </div>
-        <div class="product">
-          <img src="https://via.placeholder.com/200" alt="DVR Recorder">
-          <div class="product-details">
-            <div>DVR Recorder</div>
-            <div class="price">₦35,000</div>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, 'DVR Recorder', 'https://via.placeholder.com/200', 35000)">Add to Cart</button>
-        </div>
-      </div>
-      <a href="cctv.html" class="explore-more" onclick="loadMoreProducts('cctv')">Explore More</a>
     </section>
   </main>
 
@@ -296,41 +263,43 @@
 
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartDisplay();
+
+      const controlsDiv = button.parentElement;
+      controlsDiv.innerHTML = `
+        <div class="quantity-control">
+          <button onclick="changeQuantity('${productName}', -1, this)">-</button>
+          <span id="qty-${productName.replace(/\s/g, '')}">${product ? product.quantity : 1}</span>
+          <button onclick="changeQuantity('${productName}', 1, this)">+</button>
+        </div>
+      `;
+    }
+
+    function changeQuantity(productName, delta, btn) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let product = cart.find(item => item.name === productName);
+
+      if (!product) return;
+
+      product.quantity += delta;
+      if (product.quantity <= 0) {
+        cart = cart.filter(item => item.name !== productName);
+        const productDiv = btn.closest('.product');
+        productDiv.querySelector('.controls').innerHTML = `<button class="add-to-cart" onclick="addToCart(this, '${productName}', '${product.image}', ${product.price})">Add to Cart</button>`;
+      } else {
+        const qtySpan = document.getElementById(`qty-${productName.replace(/\s/g, '')}`);
+        if (qtySpan) qtySpan.textContent = product.quantity;
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartDisplay();
     }
 
     function updateCartDisplay() {
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      let cartInfo = document.getElementById('cart-info');
-      let totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-      let totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-      cartInfo.innerHTML = `<i class="fas fa-shopping-cart"></i>Cart (${totalItems} items - ₦${totalPrice.toLocaleString()})`;
-    }
-
-    function loadMoreProducts(section) {
-      const productContainer = document.getElementById(`${section}-products`);
-
-      let newProducts = [
-        { name: 'Additional Product 1', image: 'https://via.placeholder.com/200', price: 2500 },
-        { name: 'Additional Product 2', image: 'https://via.placeholder.com/200', price: 3500 },
-        { name: 'Additional Product 3', image: 'https://via.placeholder.com/200', price: 4500 },
-        { name: 'Additional Product 4', image: 'https://via.placeholder.com/200', price: 5500 }
-      ];
-
-      newProducts.forEach(product => {
-        let productDiv = document.createElement('div');
-        productDiv.classList.add('product');
-        productDiv.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
-          <div class="product-details">
-            <div>${product.name}</div>
-            <div class="price">₦${product.price.toLocaleString()}</div>
-          </div>
-          <button class="add-to-cart" onclick="addToCart(this, '${product.name}', '${product.image}', ${product.price})">Add to Cart</button>
-        `;
-        productContainer.appendChild(productDiv);
-      });
-
-      event.target.style.display = 'none';
+      let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      let totalPrice = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
+      document.getElementById('cart-info').innerHTML =
+        `<i class="fas fa-shopping-cart"></i>Cart (${totalItems} items - ₦${totalPrice.toLocaleString()})`;
     }
 
     function searchProducts() {
@@ -339,23 +308,12 @@
 
       allProducts.forEach(product => {
         const name = product.querySelector('.product-details div').textContent.toLowerCase();
-        if (name.includes(input)) {
-          product.style.display = 'block';
-        } else {
-          product.style.display = 'none';
-        }
+        product.style.display = name.includes(input) ? 'block' : 'none';
       });
-
-      localStorage.setItem('searchQuery', input);
     }
 
     window.addEventListener('load', () => {
       updateCartDisplay();
-      const savedQuery = localStorage.getItem('searchQuery') || '';
-      if (savedQuery) {
-        document.getElementById('searchInput').value = savedQuery;
-        searchProducts();
-      }
     });
   </script>
 </body>
