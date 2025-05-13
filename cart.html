@@ -178,74 +178,93 @@
   </main>
 
   <footer>
-  <div class="footer-nav">
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="store.html"><i class="fas fa-store"></i>Store</a>
-    <a href="Services.html"><i class="fas fa-tools"></i>Services</a>
-    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
-  </div>
-</footer>
-<script>
-  function renderCart() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartItemsDiv = document.getElementById('cart-items');
-    const cartTotalDiv = document.getElementById('cart-total');
-    cartItemsDiv.innerHTML = '';
+    <div class="footer-nav">
+      <a href="https://1drv.ms/u/c/6f8645f65f70b2e8/EQt0NRbCYmFHjeAStEJ_g9UB1inOstk0uhMHMCAlRkUE8w"><i class="fas fa-home"></i>Home</a>
+      <a href="store.html"><i class="fas fa-store"></i>Store</a>
+      <a href="services.html"><i class="fas fa-tools"></i>Services</a>
+      <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    </div>
+  </footer>
 
-    if (cart.length === 0) {
-      cartItemsDiv.innerHTML = '<div class="empty-message">Your cart is empty.</div>';
-      cartTotalDiv.textContent = 'Total: ₦0';
-      return;
+  <script>
+      localStorage.removeItem("orderSubmitted");
+    function loadCart() {
+      const cartContainer = document.getElementById('cart-items');
+      const totalDisplay = document.getElementById('cart-total');
+      const checkoutBtn = document.getElementById('checkout-btn');
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const consolidated = {};
+      cart.forEach(item => {
+        if (consolidated[item.name]) {
+          consolidated[item.name].quantity++;
+        } else {
+          consolidated[item.name] = { ...item, quantity: 1 };
+        }
+      });
+
+      cart = Object.values(consolidated);
+      cartContainer.innerHTML = '';
+      let grandTotal = 0;
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<p class="empty-message">Your cart is empty.</p>';
+        checkoutBtn.style.display = 'none';
+        totalDisplay.style.display = 'none';
+        return;
+      }
+
+      totalDisplay.style.display = 'block';
+      checkoutBtn.style.display = 'inline-block';
+
+      cart.forEach((item) => {
+        const itemTotal = item.price * item.quantity;
+        grandTotal += itemTotal;
+
+        const itemHTML = `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="cart-details">
+              <div><strong>${item.name}</strong></div>
+              <div class="price">₦${item.price.toLocaleString()}</div>
+              <div class="quantity-controls">
+                <button onclick="changeQuantity('${item.name}', -1)">-</button>
+                <span>${item.quantity}</span>
+                <button onclick="changeQuantity('${item.name}', 1)">+</button>
+              </div>
+              <div>Subtotal: ₦${itemTotal.toLocaleString()}</div>
+            </div>
+            <button class="remove-btn" onclick="removeItem('${item.name}')">Remove</button>
+          </div>
+        `;
+        cartContainer.innerHTML += itemHTML;
+      });
+
+      totalDisplay.textContent = 'Total: ₦' + grandTotal.toLocaleString();
     }
 
-    let total = 0;
-    cart.forEach(item => {
-      const itemTotal = item.price * item.quantity;
-      total += itemTotal;
-
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'cart-item';
-      itemDiv.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
-        <div class="cart-details">
-          <div><strong>${item.name}</strong></div>
-          <div class="price">₦${item.price.toLocaleString()}</div>
-          <div class="quantity-controls">
-            <button onclick="updateQty('${item.name}', -1)">-</button>
-            <span>${item.quantity}</span>
-            <button onclick="updateQty('${item.name}', 1)">+</button>
-          </div>
-        </div>
-        <button class="remove-btn" onclick="removeItem('${item.name}')">Remove</button>
-      `;
-      cartItemsDiv.appendChild(itemDiv);
-    });
-
-    cartTotalDiv.textContent = `Total: ₦${total.toLocaleString()}`;
-  }
-
-  function updateQty(name, delta) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const item = cart.find(i => i.name === name);
-
-    if (item) {
-      item.quantity += delta;
-      if (item.quantity <= 0) {
-        cart = cart.filter(i => i.name !== name);
+    function changeQuantity(name, delta) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (delta > 0) {
+        const item = cart.find(i => i.name === name);
+        if (item) cart.push({ name: item.name, image: item.image, price: item.price });
+      } else {
+        const index = cart.findIndex(i => i.name === name);
+        if (index !== -1) cart.splice(index, 1);
       }
       localStorage.setItem('cart', JSON.stringify(cart));
-      renderCart();
+      loadCart();
     }
-  }
 
-  function removeItem(name) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart = cart.filter(i => i.name !== name);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    renderCart();
-  }
+    function removeItem(name) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.name !== name);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
 
-  window.onload = renderCart;
-</script>
+    window.onload = loadCart;
+  </script>
 </body>
 </html>
