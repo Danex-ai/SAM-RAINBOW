@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Store - SAMLECT ELECTRONICS</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    /* Reset and Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3f4f6;
+      color: #333;
+      line-height: 1.6;
+      padding-top: 100px;   /* space for fixed header */
+      padding-bottom: 80px; /* space for fixed footer */
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #003366;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #fff;
+      user-select: none;
+    }
+
+    .search-container {
+      margin-left: 2rem;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 0.4rem 0.6rem;
+      border-radius: 5px;
+      border: none;
+      font-size: 0.9rem;
+      outline-offset: 2px;
+    }
+
+    .cart-button {
+      font-size: 0.95rem;
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      margin-left: auto; /* pushes cart button right */
+      background-color: transparent;
+      border: 1.5px solid #f68b1e;
+      border-radius: 4px;
+      padding: 0.4rem 0.8rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .cart-button:hover {
+      background-color: #f68b1e;
+      color: #003366;
+    }
+
+    .cart-button i {
+      margin-right: 0.4rem;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    .store-section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+
+    .store-section h2 {
+      color: #003366;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Preserve your horizontal scroll container */
+    .product-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Product Cards */
+    .product {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+      min-width: 200px;
+      cursor: default;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .product img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-details {
+      margin-top: 0.5rem;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #003366;
+      font-size: 1.1rem;
+    }
+
+    .controls {
+      margin-top: 0.5rem;
+    }
+
+    .add-to-cart,
+    .qty-btn {
+      background: #003366;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-to-cart:hover,
+    .qty-btn:hover {
+      background-color: #002244;
+    }
+
+    .quantity-control button {
+      padding: 0.3rem 0.8rem;
+      margin: 0 0.25rem;
+      background: #003366;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .quantity-control button:hover {
+      background-color: #002244;
+    }
+
+    .quantity-control span {
+      min-width: 25px;
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+      color: #003366;
+    }
+
+    .explore-more {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #f68b1e;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .explore-more:hover {
+      color: #d87600;
+    }
+
+    /* Footer */
+    footer {
+      background: #003366;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 0.6rem 2rem;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+      overflow: hidden;
+      color: #fff;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .footer-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.75rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-nav i {
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .footer-nav a:hover {
+      color: #00ffcc;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-container {
+        width: 100%;
+        margin: 0.5rem 0 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+<div class="logo">Sam Rainbow Global Services Ltd</div>
+<div class="search-container">
+<input id="searchInput" oninput="searchProducts()" placeholder="Search products..." type="text"/>
+</div>
+<a class="cart-button" href="cart.html" id="cart-info">
+<i class="fas fa-shopping-cart"></i>Cart (0 items - ₦0)
+    </a>
+</header>
+<main>
+<section class="store-section">
+<h2>Electrical Appliance Sales</h2>
+
+
+<div class="product-container"><div class="product" data-name="18W AKT bulb">
+<img alt="18W AKT bulb" src="https://lagos.buildersmarket.ng/wp-content/uploads/2024/09/IMG_20240917_155334-scaled.jpg"/>
+<div class="product-details"><div>18W AKT bulb</div><div class="price">₦5,800</div></div>
+<button class="add-to-cart" onclick="addToCart(this, '18W AKT bulb', 'https://via.placeholder.com/100', 1200)">Add to Cart</button>
+</div><div class="product" data-name="20W AKT bulb">
+<img alt="20W AKT bulb" src="https://cdn-ilbaeph.nitrocdn.com/EcKJeFbGrrPkUWmJxkCIzNqfbYiYZgfZ/assets/images/optimized/rev-4294969/i0.wp.com/xpelectric.com/wp-content/uploads/2021/12/a0baa9e97f95cfa73648357897fd57a7.262169430_916050335689094_8962678033861364086_n.jpg"/>
+<div class="product-details"><div>20W AKT bulb</div><div class="price">₦1,300</div></div>
+<button class="add-to-cart" onclick="addToCart(this, '20W AKT bulb', 'https://via.placeholder.com/100', 1300)">Add to Cart</button>
+</div></div><a class="explore-more" href="electric.html">Explore More</a>
+</section>
+<section class="store-section">
+<h2>Houselighting</h2>
+
+
+
+
+
+
+<div class="product-container"><div class="product" data-name="Digital indicator bulb">
+<img alt="Digital indicator bulb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyg0se14goiMhmG1o06LiWm5jtn7WKX4Jr8g&amp;usqp=CAU"/>
+<div class="product-details"><div>Digital indicator bulb</div><div class="price">₦1,300</div>
+<button class="add-to-cart" onclick="addToCart(this, '20W AKT bulb', 'https://via.placeholder.com/100', 1300)">Add to Cart</button>
+
+</div>
+    
+</div><div class="product" data-name="12W pop 2-in-1 color">
+<img alt="12W pop 2-in-1 color" src="https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/27/052458/1.jpg?1199"/>
+<div class="product-details"><div>12W pop 2-in-1 color</div><div class="price">₦1,300</div></div>
+
+    <button class="add-to-cart" onclick="addToCart(this, '20W AKT bulb', 'https://via.placeholder.com/100', 1300)">Add to Cart</button>
+</div>
+    </div><a class="explore-more" href="electric.html">Explore More</a>
+</section>
+<section class="store-section">
+<h2>ELECTRICAL EQUIPMENT</h2>
+
+
+
+<div class="product-container"><div class="product" data-name="12W colored bulbs">
+<img alt="12W colored bulbs" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9vdsTdHn0CQ5xQa8iAw-JVLGx6X71wz0ewvWSDXBYzhA2LRRtMfjPTo4&amp;s=10"/>
+<div class="product-details"><div>12W colored bulbs</div><div class="price">₦1,100</div></div>
+<button class="add-to-cart" onclick="addToCart(this, '12W colored bulbs', 'https://via.placeholder.com/100', 1100)">Add to Cart</button>
+</div><div class="product" data-name="13A VAE double socket">
+<img alt="13A VAE double socket" src="data:image/jpeg;base64,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"/>
+<div class="product-details"><div>13A VAE double socket</div><div class="price">₦1800</div></div>
+<button class="add-to-cart" onclick="addToCart(this, '13A VAE double socket', 'images/switches/13a-vae-double.jpg', 1800)">Add to Cart</button>
+</div><div class="product" data-name="Fan regulator">
+<img alt="Fan regulator" src="data:image/webp;base64,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"/>
+<div class="product-details"><div>Fan regulator</div><div class="price">₦1500</div></div>
+<button class="add-to-cart" onclick="addToCart(this, 'Fan regulator', 'images/switches/fan-regulator.jpg', 1500)">Add to Cart</button>
+</div></div><a class="explore-more" href="electric.html">Explore More</a>
+</section>
+</main>
+<footer>
+<div class="footer-nav">
+<a href="index.html"><i class="fas fa-home"></i>Home</a>
+<a href="store.html"><i class="fas fa-store"></i>Store</a>
+<a href="Services.html"><i class="fas fa-tools"></i>Services</a>
+<a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+</div>
+</footer>
+<script>
+  // Add product to cart or increase quantity if already in cart
+  function addToCart(button, productName, productImage, price) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let product = cart.find(item => item.name === productName);
+
+    if (product) {
+      product.quantity += 1;
+    } else {
+      cart.push({ name: productName, image: productImage, price: price, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+
+    // Replace Add to Cart button with quantity controls
+    const controlsDiv = button.closest('.controls');
+    if (controlsDiv) {
+      controlsDiv.innerHTML = `
+        <div class="quantity-control">
+          <button onclick="changeQuantity('${productName}', -1, this)">-</button>
+          <span id="qty-${productName.replace(/\s/g, '')}">${product ? product.quantity : 1}</span>
+          <button onclick="changeQuantity('${productName}', 1, this)">+</button>
+        </div>
+      `;
+    }
+  }
+
+  // Change quantity of a product in cart
+  function changeQuantity(productName, delta, button) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let product = cart.find(item => item.name === productName);
+    if (!product) return;
+
+    product.quantity += delta;
+
+    if (product.quantity <= 0) {
+      // Remove product from cart
+      cart = cart.filter(item => item.name !== productName);
+
+      // Reset controls to Add to Cart button
+      const controlsDiv = button.closest('.controls');
+      if (controlsDiv) {
+        controlsDiv.innerHTML = `
+          <button class="add-to-cart" onclick="addToCart(this, '${productName}', '${product.image}', ${product.price})">Add to Cart</button>
+        `;
+      }
+    } else {
+      // Update quantity display
+      const qtySpan = document.getElementById(`qty-${productName.replace(/\s/g, '')}`);
+      if (qtySpan) qtySpan.textContent = product.quantity;
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+  }
+
+  // Update the cart summary display in header
+  function updateCartDisplay() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    let totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const cartInfo = document.getElementById('cart-info');
+    if (cartInfo) {
+      cartInfo.innerHTML = `<i class="fas fa-shopping-cart"></i>Cart (${totalItems} item${totalItems !== 1 ? 's' : ''} - ₦${totalPrice.toLocaleString()})`;
+    }
+  }
+
+  // Filter products on search input
+  function searchProducts() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+
+    const allProducts = document.querySelectorAll('.product');
+    allProducts.forEach(product => {
+      const productName = product.querySelector('.product-details div:first-child').textContent.toLowerCase();
+      product.style.display = productName.includes(input) ? '' : 'none';
+    });
+  }
+
+  // On page load, restore cart quantities and update display
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartDisplay();
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.forEach(item => {
+      const allProducts = document.querySelectorAll('.product');
+      allProducts.forEach(productCard => {
+        const productName = productCard.querySelector('.product-details div:first-child').textContent;
+        if (productName === item.name) {
+          const controlsDiv = productCard.querySelector('.controls');
+          if (controlsDiv) {
+            controlsDiv.innerHTML = `
+              <div class="quantity-control">
+                <button onclick="changeQuantity('${item.name}', -1, this)">-</button>
+                <span id="qty-${item.name.replace(/\s/g, '')}">${item.quantity}</span>
+                <button onclick="changeQuantity('${item.name}', 1, this)">+</button>
+              </div>
+            `;
+          }
+        }
+      });
+    });
+  });
+</script><script>
+  // Add product to cart or increase quantity if already in cart
+  function addToCart(button, productName, productImage, price) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let product = cart.find(item => item.name === productName);
+
+    if (product) {
+      product.quantity += 1;
+    } else {
+      cart.push({ name: productName, image: productImage, price: price, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+
+    // Replace Add to Cart button with quantity controls
+    const controlsDiv = button.closest('.controls');
+    if (controlsDiv) {
+      controlsDiv.innerHTML = `
+        <div class="quantity-control">
+          <button onclick="changeQuantity('${productName}', -1, this)">-</button>
+          <span id="qty-${productName.replace(/\s/g, '')}">${product ? product.quantity : 1}</span>
+          <button onclick="changeQuantity('${productName}', 1, this)">+</button>
+        </div>
+      `;
+    }
+  }
+
+  // Change quantity of a product in cart
+  function changeQuantity(productName, delta, button) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let product = cart.find(item => item.name === productName);
+    if (!product) return;
+
+    product.quantity += delta;
+
+    if (product.quantity <= 0) {
+      // Remove product from cart
+      cart = cart.filter(item => item.name !== productName);
+
+      // Reset controls to Add to Cart button
+      const controlsDiv = button.closest('.controls');
+      if (controlsDiv) {
+        controlsDiv.innerHTML = `
+          <button class="add-to-cart" onclick="addToCart(this, '${productName}', '${product.image}', ${product.price})">Add to Cart</button>
+        `;
+      }
+    } else {
+      // Update quantity display
+      const qtySpan = document.getElementById(`qty-${productName.replace(/\s/g, '')}`);
+      if (qtySpan) qtySpan.textContent = product.quantity;
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+  }
+
+  // Update the cart summary display in header
+  function updateCartDisplay() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    let totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const cartInfo = document.getElementById('cart-info');
+    if (cartInfo) {
+      cartInfo.innerHTML = `<i class="fas fa-shopping-cart"></i>Cart (${totalItems} item${totalItems !== 1 ? 's' : ''} - ₦${totalPrice.toLocaleString()})`;
+    }
+  }
+
+  // Filter products on search input
+  function searchProducts() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+
+    const allProducts = document.querySelectorAll('.product');
+    allProducts.forEach(product => {
+      const productName = product.querySelector('.product-details div:first-child').textContent.toLowerCase();
+      product.style.display = productName.includes(input) ? '' : 'none';
+    });
+  }
+
+  // On page load, restore cart quantities and update display
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartDisplay();
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.forEach(item => {
+      const allProducts = document.querySelectorAll('.product');
+      allProducts.forEach(productCard => {
+        const productName = productCard.querySelector('.product-details div:first-child').textContent;
+        if (productName === item.name) {
+          const controlsDiv = productCard.querySelector('.controls');
+          if (controlsDiv) {
+            controlsDiv.innerHTML = `
+              <div class="quantity-control">
+                <button onclick="changeQuantity('${item.name}', -1, this)">-</button>
+                <span id="qty-${item.name.replace(/\s/g, '')}">${item.quantity}</span>
+                <button onclick="changeQuantity('${item.name}', 1, this)">+</button>
+              </div>
+            `;
+          }
+        }
+      });
+    });
+  });
+</script>
+</body></html>
