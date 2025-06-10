@@ -129,7 +129,26 @@
       max-width: 100%;
       margin-left: auto;
       margin-right: auto;
-      
+    }
+
+    .boxes{
+       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .box{
+       background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .box h3{
+       margin-bottom: 0.5rem;
+      color: #003366;
     }
 
    footer {
@@ -237,29 +256,31 @@
 <!--clients remark  -->
     <div class="mother-box">
       <h1>WHAT OUR CLIENTS SAY</h1>
+
+      <div class="boxes">
     <div class="box">
-        Samantha Johnson
-     ״I was impressed by the professionalism of Ferbmal Electrical. 
+       <h3>Samantha Johnson</h3>
+    <p>״I was impressed by the professionalism of Ferbmal Electrical. 
       They handled my residential wiring project with expertise and attention to detail, 
-      ensuring a safe and reliable electrical system in my home.״
+      ensuring a safe and reliable electrical system in my home.״</p>
     </div>
 
 <!--box2  -->
        <div class="box">
-        Samantha Johnson
-     ״I was impressed by the professionalism of Ferbmal Electrical. 
+       <h3>Samantha Johnson</h3>
+    <p>״I was impressed by the professionalism of Ferbmal Electrical. 
       They handled my residential wiring project with expertise and attention to detail, 
-      ensuring a safe and reliable electrical system in my home.״
+      ensuring a safe and reliable electrical system in my home.״</p>
     </div>
 
 <!--box 3 -->
        <div class="box">
-        Samantha Johnson
-     ״I was impressed by the professionalism of Ferbmal Electrical. 
+       <h3>Samantha Johnson</h3>
+    <p>״I was impressed by the professionalism of Ferbmal Electrical. 
       They handled my residential wiring project with expertise and attention to detail, 
-      ensuring a safe and reliable electrical system in my home.״
+      ensuring a safe and reliable electrical system in my home.״</p>
     </div>
-      
+        </div
     </div>
     
   </main>
