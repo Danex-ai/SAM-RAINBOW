@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Yuji Mai", serif;
+        background-image: url("images/images/pizza-bg.webp");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 560px;
+        color: white;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: -1;
+      }
+      .container {
+        margin-top: 100px;
+        max-width: 400px;
+      }
+      input,
+      button {
+        margin-top: 15px;
+      }
+      .btn {
+        background: #7f3e12;
+        color: white;
+      }
+      .container {
+        animation: fadeIn 1s ease-in;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (max-width: 480px) {
+        .container {
+          margin: 50px 20px;
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1 style="font-weight: 900; font-size: 30px">
+       sam rainbow
+      </h1>
+
+      <!-- Login Form -->
+      <form id="loginForm">
+        <div class="mb-3">
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn w-100">Login</button>
+      </form>
+      <p class="mt-3">
+        Don't have an account?
+        <a href="index.html" id="signupLink" style="color: lightblue"
+          >Sign Up</a
+        >
+      </p>
+    </div>
+
+    <script>
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+
+        // Get registered users from localStorage
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+        // Check for match
+        const user = users.find(
+          (u) => u.username === username && u.password === password
+        );
+        2;
+
+        if (user) {
+          localStorage.setItem("loggedIn", "true");
+          localStorage.setItem("loggedInUser", username);
+          alert("Login successful!");
+          window.location.href = "home.html"; // Redirect to main page
+        } else {
+          alert("Invalid username or password.");
+        }
+      });
+
+      // Handle sign-up link
+    </script>
+  </body>
+</html>
