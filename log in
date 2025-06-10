@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup</title>
+
+  <!--Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="signup.css" />
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    # background-image: url(") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 560px;
+    color: white;
+  }
+  
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+  }
+  
+  .container {
+    animation: fadeIn 1s ease-in;
+    margin-top: 100px;
+    max-width: 400px;
+    border: 2px solid transparent;
+    box-shadow: 2px 2px 2px 2px #030102;
+    border-radius: 5px;
+  }
+  
+  input,
+  button {
+    margin-top: 15px;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      margin: 50px 20px;
+      padding: 20px;
+    }
+  }
+  
+</style>
+
+</head>
+
+
+<body>
+  <div class="container text-center">
+    <h1>🍕 Join DaCrust Family 🍕</h1>
+    <p>Sign up now to unlock cheesy deals, secret toppings, and pizza made just for you!</p>
+
+    <!-- Signup Form -->
+    <form id="signupForm">
+      <div class="mb-3">
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          placeholder="Email"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          placeholder="Username"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-danger w-100">Sign Up</button>
+    </form>
+
+    <p class="mt-3">
+      Already have an account?
+      <a href="index.html" style="color: lightblue">Log in</a>
+    </p>
+  </div>
+
+  <!-- JavaScript -->
+  <script> 
+  document.addEventListener("DOMContentLoaded", () => {
+    const signupForm = document.getElementById("signupForm");
+
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (email && username && password) {
+        // Get existing users or initialize empty array
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Check if username already exists
+        const userExists = users.some(user => user.username === username);
+        if (userExists) {
+          alert("Username already exists. Please choose another one.");
+          return;
+        }
+
+        // Add new user
+        users.push({ email, username, password });
+
+        // Save back to localStorage
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("loggedIn", "true");
+
+        console.log("Signed up:", { email, username, password });
+        window.location.href = "pizza.html";
+      } else {
+        alert("Please fill in all fields.");
+      }
+    });
+  });
+
+
+  </script>
+</body>
+</html>
